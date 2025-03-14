@@ -1,0 +1,12 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - OPENAI_API_KEY=OPENAI_API_KEY  # Replace with your actual OpenAI API key or load from a secure source
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:8080"
