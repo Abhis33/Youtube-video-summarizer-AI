@@ -2,6 +2,8 @@
 
 This is a simple web app. It takes a YouTube URL and returns a summary of the video.
 
+!["Youtube video summarizer"](https://github.com/Abhis33/Youtube-video-summarizer-AI/blob/main/screenshots/Screenshot%202025-03-14%20at%2010-20-02%20Vue%20App.png?raw=true)
+
 ## What It Does
 
 -   **Input:** A YouTube URL.
