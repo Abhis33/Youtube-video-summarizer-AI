@@ -1,47 +1,41 @@
 <template>
-  <div id="app">
-    <div class="container">
-      <header>
-        <h1>YouTube Video Summarizer</h1>
-        <p class="tagline">Get concise summaries of any YouTube video</p>
-      </header>
+<div id="app">
+  <div class="container">
+    <header>
+      <h1>YouTube Video Summarizer</h1>
+      <p class="tagline">Get concise summaries of any YouTube video</p>
+    </header>
 
-      <form @submit.prevent="submitUrl" class="search-form">
-        <div class="input-group">
-          <input
-            type="text"
-            v-model="youtubeUrl"
-            placeholder="Enter YouTube URL"
-            required
-            class="url-input"
-          />
-          <button type="submit" class="btn-submit">
-            <span v-if="loading">Processing...</span>
-            <span v-else>Summarize</span>
-          </button>
-        </div>
-      </form>
-
-      <div v-if="loading" class="loading-indicator">
-        <div class="spinner"></div>
-        <p>Fetching and analyzing video content...</p>
+    <form @submit.prevent="submitUrl" class="search-form">
+      <div class="input-group">
+        <input type="text" v-model="youtubeUrl" placeholder="Enter YouTube URL" required class="url-input" />
+        <button type="submit" class="btn-submit">
+          <span v-if="loading">Processing...</span>
+          <span v-else>Summarize</span>
+        </button>
       </div>
+    </form>
 
-      <div v-if="summary" class="summary-container">
-        <h2>Summary</h2>
-        <div class="summary-content">
-          {{ summary }}
-        </div>
+    <div v-if="loading" class="loading-indicator">
+      <div class="spinner"></div>
+      <p>Fetching and analyzing video content...</p>
+    </div>
+
+    <div v-if="summary" class="summary-container">
+      <h2>Summary</h2>
+      <div class="summary-content">
+        {{ summary }}
       </div>
+    </div>
 
-      <div v-if="error" class="error-container">
-        <h2>Error</h2>
-        <div class="error-message">
-          {{ error }}
-        </div>
+    <div v-if="error" class="error-container">
+      <h2>Error</h2>
+      <div class="error-message">
+        {{ error }}
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -63,7 +57,9 @@ export default {
       this.loading = true
 
       try {
-        const response = await axios.post('http://localhost:5000/summarize', { url: this.youtubeUrl });
+        const response = await axios.post('http://localhost:5000/summarize', {
+          url: this.youtubeUrl
+        });
         if (response.data.summary) {
           this.summary = response.data.summary;
         } else if (response.data.error) {
@@ -71,7 +67,7 @@ export default {
         }
       } catch (err) {
         console.error('Error:', err);
-        this.error = err.response?.data?.error || 'An error occurred while summarizing.';
+        this.error = err.response ? .data ? .error || 'An error occurred while summarizing.';
       } finally {
         this.loading = false;
       }
@@ -196,12 +192,18 @@ h1 {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Summary container */
-.summary-container, .error-container {
+.summary-container,
+.error-container {
   background-color: white;
   border-radius: var(--border-radius);
   padding: 25px;
@@ -209,7 +211,8 @@ h1 {
   box-shadow: var(--box-shadow);
 }
 
-.summary-container h2, .error-container h2 {
+.summary-container h2,
+.error-container h2 {
   margin-top: 0;
   color: var(--primary-color);
   font-size: 1.5rem;
